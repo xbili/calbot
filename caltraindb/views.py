@@ -47,11 +47,6 @@ def trip(request):
             )
         )
 
-    def filter_weekends(trips):
-        if weekend:
-            return stop_time['service_id'] in WEEKEND_SERVICE_IDS
-        return stop_time['service_id'] not in WEEKEND_SERVICE_IDS
-
     def format_time(stop_time):
         depart_time = stop_time['departure_time']
         try:
