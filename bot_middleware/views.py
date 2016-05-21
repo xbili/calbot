@@ -58,8 +58,11 @@ def _handle_message_event(request_time, event):
     sender = event.get('sender')
     sender_id = sender.get('id')
 
-    message = event.get('message')
-    text = message['text']
+    if event.get('postback', None):
+        messenger.send_text_message(sender_id, 'Your wish is my command.')
+    else:
+        message = event.get('message')
+        text = message['text']
 
     if sender_id:
         updated_context = witbot.chat(sender_id, 'America/Los_Angeles', text, str(int(time.time())), cached_sessions.get(sender_id, {}))

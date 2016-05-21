@@ -19,6 +19,7 @@ class WitBot():
             'error': self.error,
             'get_trip': self.get_trip,
             'clear_context': self.clear_context,
+            'get_notification_preferences': self.get_notification_preferences,
         }
         self._wit_client = Wit(witai_key, actions)
         self._caldb = CalDbInterface()
@@ -68,4 +69,15 @@ class WitBot():
         print(trip)
 
         cxt['train_time'] = trip['min_time']
+        return cxt
+
+    # Hackish methods...
+    def get_notification_preferences(self, session_id, cxt):
+        messenger_id = cxt.get('messenger_id')
+        buttons = [
+            messenger.generate_button('postback', 'Yes', payload='Yes'),
+            messenger.generate_button('postback', 'No', payload='No'),
+        ]
+        button_template = messenger.generate_button_template('Wait, one more thing! Would you like to receive notifications of any disruption to the train service?', buttons)
+        messenger.send_structured_message(messenger_id, button_template)
         return cxt
