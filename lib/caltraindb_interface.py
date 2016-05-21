@@ -2,6 +2,7 @@
 # coding=utf-8
 
 import requests
+from datetime import datetime
 
 from lib.utils import convert_time
 
@@ -11,13 +12,20 @@ class CalDbInterface:
 
     def get_trip(self, start_stop, end_stop, stated_time):
         print('Getting trip')
+        params={
+            'start_stop': start_stop,
+            'end_stop': end_stop,
+            'stated_time': convert_time(stated_time),
+        }
+
+        # Checks if stated_time is a weekend, actually it's just checking if today is a weekend, amirite?
+        if datetime.today().weekday() > 4:
+            print('weekend yeah!')
+            params['weekend'] = True
+
         r = requests.request(
             'GET',
             self.prefix + '/trip',
-            params={
-                'start_stop': start_stop,
-                'end_stop': end_stop,
-                'stated_time': convert_time(stated_time),
-            },
+            params=params,
         )
         return r.json()
