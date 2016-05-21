@@ -34,6 +34,10 @@ def trip(request):
     end_stop = request.GET.get('end_stop')
     stated_time = request.GET.get('stated_time')
     weekend = request.GET.get('weekend', False)
+    bullet = request.GET.get('bullet', False)
+
+    if bullet:
+        bullet_route_id = Route.objects.filter(route_long_name__startswith='Baby Bullet').values('route_id')[0]['route_id']
 
     stop_times = list(
             map(
@@ -62,6 +66,11 @@ def trip(request):
         departure_time = stop_time['departure_time']
         return strptime(departure_time, '%H:%M:%S') >= strptime(stated_time, '%H:%M:%S')
 
+    def filter_bullet(trip):
+        # TODO: Figure out why this doesn't work
+        # return model_to_dict(trip)['route'] == bullet_route_id
+        return model_to_dict(trip)['route'] == 'Bu-16APR'
+
     def get_valid_trips(stop_times, valid_trip_ids):
         ht = {}
         for st in stop_times:
@@ -82,6 +91,10 @@ def trip(request):
     trips = Trip.objects.exclude(service_id__in=WEEKEND_SERVICE_IDS)
     if weekend:
         trips = Trip.objects.filter(service_id__in=WEEKEND_SERVICE_IDS)
+    if bullet:
+        trips = list(filter(filter_bullet, trips))
+
+
     trip_ids = list(
         map(
             lambda x: x['trip_id'],
