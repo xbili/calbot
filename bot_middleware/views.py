@@ -68,6 +68,6 @@ def _handle_message_event(request_time, event):
         message = event.get('message')
         text = message['text']
 
-    if sender_id:
-        updated_context = witbot.chat(sender_id, 'America/Los_Angeles', text, str(int(time.time())), cached_sessions.get(sender_id, {}))
-        cached_sessions[sender_id] = updated_context
+        if sender_id:
+            updated_context = witbot.chat(sender_id, 'America/Los_Angeles', text, str(int(time.time())), cached_sessions.get(sender_id, {}))
+            cached_sessions[sender_id] = updated_context
