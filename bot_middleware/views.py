@@ -10,13 +10,14 @@ from django.views.decorators.http import require_http_methods
 
 from lib.witbot import WitBot
 from lib import messenger
+from lib.tokens import *
 
 cached_sessions = {}
 
 def say(session_id, cxt, msg):
     messenger.send_text_message(cxt['messenger_id'], msg)
 
-witbot = WitBot('IQZYCNKHFFHUCURIQMIEYXDFXPXDYOV5', say)
+witbot = WitBot(WITAI_TOKEN, say)
 
 @require_http_methods(['GET', 'POST'])
 def index(request):
