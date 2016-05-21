@@ -22,6 +22,7 @@ class WitBot():
             'get_trip': self.get_trip,
             'clear_context': self.clear_context,
             'get_notification_preferences': self.get_notification_preferences,
+            'ask_bullet_option': self.ask_bullet_option,
         }
         self._wit_client = Wit(witai_key, actions)
         self._caldb = CalDbInterface()
@@ -63,12 +64,12 @@ class WitBot():
         stated_time = cxt.get('stated_time')['value']
         start_stop = cxt.get('start_stop')['value']
         end_stop = cxt.get('end_stop')['value']
+        bullet = cxt.get('bullet')
 
         start_stop = station_mapping.get(start_stop)
         end_stop = station_mapping.get(end_stop)
 
-        trip = self._caldb.get_trip(start_stop, end_stop, stated_time)
-        print(trip)
+        trip = self._caldb.get_trip(start_stop, end_stop, stated_time, bullet)
 
         cxt['train_time'] = trip['min_time']
         return cxt
@@ -77,9 +78,20 @@ class WitBot():
     def get_notification_preferences(self, session_id, cxt):
         messenger_id = cxt.get('messenger_id')
         buttons = [
-            messenger.generate_button('postback', 'Yes', payload='Yes'),
-            messenger.generate_button('postback', 'No', payload='No'),
+            messenger.generate_button('postback', 'Yes', payload='yes'),
+            messenger.generate_button('postback', 'No', payload='no'),
         ]
         button_template = messenger.generate_button_template('Wait, one more thing! Would you like to receive notifications of any disruption to the train service?', buttons)
         messenger.send_structured_message(messenger_id, button_template)
+        return cxt
+
+    def ask_bullet_option(self, session_id, cxt):
+        messenger_id = cxt.get('messenger_id')
+        buttons = [
+            messenger.generate_button('postback', 'Local', payload='local'),
+            messenger.generate_button('postback', 'Baby Bullet', payload='bullet'),
+        ]
+        button_template = messenger.generate_button_template('What do you call a train that eats gum?\n\nA chew chew train!\n\nAll right, what train service would you like to take?', buttons)
+        messenger.send_structured_message(messenger_id, button_template)
+        cxt['bullet'] = False
         return cxt

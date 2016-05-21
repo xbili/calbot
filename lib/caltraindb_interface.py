@@ -10,7 +10,7 @@ class CalDbInterface:
     def __init__(self):
         self.prefix = 'http://localhost:8000/caldb'
 
-    def get_trip(self, start_stop, end_stop, stated_time):
+    def get_trip(self, start_stop, end_stop, stated_time, bullet):
         print('Getting trip')
         params={
             'start_stop': start_stop,
@@ -22,6 +22,9 @@ class CalDbInterface:
         if datetime.today().weekday() > 4:
             print('weekend yeah!')
             params['weekend'] = True
+
+        if bullet:
+            paramts['bullet'] = True
 
         r = requests.request(
             'GET',

@@ -59,7 +59,10 @@ def _handle_message_event(request_time, event):
     sender_id = sender.get('id')
 
     if event.get('postback', None):
-        messenger.send_text_message(sender_id, 'Your wish is my command.')
+        if event['postback'] == 'yes' or event['postback'] == 'no':
+            messenger.send_text_message(sender_id, 'Your wish is my command.')
+        else:
+            messenger.send_text_message(sender_id, 'All rightttttt')
     else:
         message = event.get('message')
         text = message['text']
