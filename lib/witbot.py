@@ -4,11 +4,13 @@
 import simplejson as json
 from wit import Wit
 
+from lib import messenger
 from lib.caltraindb_interface import CalDbInterface
 
 station_mapping = {
     'Redwood City': '70142',
-    'Lawrence': '70232'
+    'Lawrence': '70232',
+    'Sunnyvale': '70222',
 }
 
 class WitBot():
