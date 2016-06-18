@@ -3,6 +3,8 @@
 import time
 import simplejson as json
 import requests
+import logging
+logger = logging.getLogger('django')
 
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
@@ -40,20 +42,20 @@ def _post(request):
     messaging_events = req['entry'][0]['messaging']
     request_time = req['entry'][0]['time']
     for event in messaging_events:
-        print('Cached sessions:')
-        print(json.dumps(cached_sessions, indent=2))
+        logger.info('Cached sessions:')
+        logger.info(json.dumps(cached_sessions, indent=2))
         _handle_message_event(request_time, event)
     return HttpResponse()
 
 def _handle_message_event(request_time, event):
     if event.get('delivery', None):
-        print('Message delivered:')
-        print(event)
+        logger.info('Message delivered:')
+        logger.info(event)
         return
 
     # Ignore repeated requests in the case of an error
     if request_time - event.get('timestamp') > 6000:
-        print('Dropping repeated message')
+        logger.info('Dropping repeated message')
         return
 
     sender = event.get('sender')
