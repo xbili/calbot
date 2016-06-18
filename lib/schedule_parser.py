@@ -29,6 +29,7 @@ SCHEDULE_PATH = os.path.dirname(os.path.abspath(__file__)) + '/schedules'
 def get_parsed_schedule():
     r = requests.get(CALTRAIN_GTFS_URL)
     z = zipfile.ZipFile(io.BytesIO(r.content))
+    z.extractall(SCHEDULE_PATH)
 
     required_files = ('routes.txt', 'stops.txt', 'stop_times.txt', 'trips.txt')
 
