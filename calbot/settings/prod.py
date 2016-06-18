@@ -1,4 +1,4 @@
-from calbot.settings import *
+from calbot.settings.defaults import *
 
 # Logging Configurations
 LOGGING = {
