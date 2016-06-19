@@ -6,7 +6,7 @@ import time
 import requests
 from datetime import datetime
 
-PAGE_ACCESS_TOKEN = 'EAADMQn0ZCogcBAOZBTTGmltC53kn73ZCJiHBafudYxD3dkhorAaZCEHnDApYudWOECoXomn3e4szuZA2dHY9UCOeqcnDXhegG8MHX3inYYFNzNhxJeYTEZB5CfEzAWpg3qK9NBhZCxeZCa8L31d0MjGZCjRbEZBXWZCPm0yb7ZBT3gZAA3wZDZD'
+PAGE_ACCESS_TOKEN = 'EAADMQn0ZCogcBALxQJ6w6QtiViAvGrI0CZBlOjUztt6emFlG0h8URCbX6bo6GDb3dMJGbWv8ZBujXAOEXerrGL2ZCE5qv8gu9bqWfHtpbZA8qCOpOyIQuQyykhMhu1ZBUMIKZBw1qeDagqYKXli75rLr5iqm4NBwZCDK6VO9LIoCLAZDZD'
 
 """
 Helper methods to generate and send Messenger messages. All new templates
