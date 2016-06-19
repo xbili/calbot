@@ -32,7 +32,6 @@ def stop(request, stop_id):
 
 @require_GET
 def trip(request):
-    logger.info('Got a CalDB request!')
     start_stop = request.GET.get('start_stop')
     end_stop = request.GET.get('end_stop')
     stated_time = request.GET.get('stated_time')
