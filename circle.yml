@@ -3,7 +3,7 @@ machine:
         - python manage.py update_database
     environment:
         DJANGO_SETTINGS_MODULE: calbot.settings.test
-        DB_NAME: calbot-test
+        DB_NAME: calbot
         DB_USER: calbot
         DB_PASSWORD: jarjarbinks
         DB_HOST: calbot-test.chkxw1myikar.us-west-1.rds.amazonaws.com
