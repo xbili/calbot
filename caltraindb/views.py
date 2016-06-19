@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 
+import logging
 from time import strptime, strftime
 import simplejson as json
+logger = logging.getLogger('django')
 
 from django.forms.models import model_to_dict
 from django.core.serializers import serialize
@@ -30,6 +32,7 @@ def stop(request, stop_id):
 
 @require_GET
 def trip(request):
+    logger.info('Got a CalDB request!')
     start_stop = request.GET.get('start_stop')
     end_stop = request.GET.get('end_stop')
     stated_time = request.GET.get('stated_time')
