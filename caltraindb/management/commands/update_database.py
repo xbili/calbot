@@ -23,6 +23,11 @@ class Command(BaseCommand):
 
         data = get_parsed_schedule()
 
+        new_routes = []
+        new_stops = []
+        new_stop_times = []
+        new_trips = []
+
         for tbl, rows in data.items():
             for row in rows:
                 if tbl == 'routes':
@@ -33,7 +38,7 @@ class Command(BaseCommand):
                         route_type=row[3],
                         route_color=row[4],
                     )
-                    new_route.save()
+                    new_routes.append(new_route)
                 elif tbl == 'stops':
                     new_stop = Stop(
                         stop_id=row[0],
@@ -48,7 +53,7 @@ class Command(BaseCommand):
                         platform_code=row[9],
                         wheelchair_boarding=row[10],
                     )
-                    new_stop.save()
+                    new_stops.append(new_stop)
                 elif tbl == 'stop_times':
                     new_stop_time = StopTime(
                         arrival_time=row[1],
@@ -59,7 +64,7 @@ class Command(BaseCommand):
                         trip_id=row[0],
                         stop_id=int(row[3]),
                     )
-                    new_stop_time.save()
+                    new_stop_times.append(new_stop_time)
                 elif tbl == 'trips':
                     new_trip = Trip(
                         trip_id=row[2],
@@ -71,9 +76,14 @@ class Command(BaseCommand):
                         bikes_allowed=row[8],
                         route_id=row[0],
                     )
-                    new_trip.save()
+                    new_trips.append(new_trip)
                 else:
                     self.stdout.error(self.style.ERROR('Invalid table type.'))
                     break
+
+        [route.save() for route in new_routes]
+        [stop.save() for stop in new_stops]
+        [trip.save() for trip in new_trips]
+        [stop_time.save() for stop_time in new_stop_times]
 
         self.stdout.write(self.style.SUCCESS('Successfully updated database'))
