@@ -1,4 +1,4 @@
-# Calbot [![CircleCI Build Status](https://circleci.com/gh/xbili/calbot.svg?style=shield)]
+# Calbot [![CircleCI Build Status](https://circleci.com/gh/xbili/calbot.svg?style=shield)](https://circleci.com/gh/xbili/calbot)
 
 Calbot gives you real-time live updates about train schedules.
 
