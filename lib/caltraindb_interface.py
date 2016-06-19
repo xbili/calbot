@@ -18,7 +18,6 @@ class CalDbInterface:
             'stated_time': convert_time(stated_time),
         }
 
-        # Checks if stated_time is a weekend, actually it's just checking if today is a weekend, amirite?
         if datetime.today().weekday() > 4:
             print('weekend yeah!')
             params['weekend'] = True

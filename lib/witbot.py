@@ -1,8 +1,10 @@
 #!/usr/bin/python
 # coding=utf-8
 
+import logging
 import simplejson as json
 from wit import Wit
+logger = logging.getLogger('django')
 
 from lib import messenger
 from lib.caltraindb_interface import CalDbInterface
@@ -21,8 +23,6 @@ class WitBot():
             'error': self.error,
             'get_trip': self.get_trip,
             'clear_context': self.clear_context,
-            'get_notification_preferences': self.get_notification_preferences,
-            'ask_bullet_option': self.ask_bullet_option,
         }
         self._wit_client = Wit(witai_key, actions)
         self._caldb = CalDbInterface()
@@ -39,7 +39,7 @@ class WitBot():
 
     def merge(self, session_id, cxt, entities, msg):
         for name, vals in entities.items():
-            print(name, vals)
+            logger.info(name, vals)
             if name == 'caltrain_station_start':
                 cxt['start_stop'] = vals[0]
             elif name == 'caltrain_station_end':
@@ -50,7 +50,7 @@ class WitBot():
         return cxt
 
     def error(self, session_id, cxt, e):
-        print('Wit.ai error occurred.')
+        logger.error('Wit.ai error occurred.')
         raise e
 
     def clear_context(self, session_id, cxt):
@@ -72,26 +72,4 @@ class WitBot():
         trip = self._caldb.get_trip(start_stop, end_stop, stated_time, bullet)
 
         cxt['train_time'] = trip['min_time']
-        return cxt
-
-    # Hackish methods...
-    def get_notification_preferences(self, session_id, cxt):
-        messenger_id = cxt.get('messenger_id')
-        buttons = [
-            messenger.generate_button('postback', 'Yes', payload='yes'),
-            messenger.generate_button('postback', 'No', payload='no'),
-        ]
-        button_template = messenger.generate_button_template('Wait, one more thing! Would you like to receive notifications of any disruption to the train service?', buttons)
-        messenger.send_structured_message(messenger_id, button_template)
-        return cxt
-
-    def ask_bullet_option(self, session_id, cxt):
-        messenger_id = cxt.get('messenger_id')
-        buttons = [
-            messenger.generate_button('postback', 'Local', payload='local'),
-            messenger.generate_button('postback', 'Baby Bullet', payload='bullet'),
-        ]
-        button_template = messenger.generate_button_template('What do you call a train that eats gum?\n\nA chew chew train!\n\nAll right, what train service would you like to take?', buttons)
-        messenger.send_structured_message(messenger_id, button_template)
-        cxt['bullet'] = False
         return cxt
