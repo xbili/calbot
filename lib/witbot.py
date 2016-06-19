@@ -38,8 +38,8 @@ class WitBot():
         return context
 
     def merge(self, session_id, cxt, entities, msg):
+        logger.info(json.dumps(cxt, indent=4))
         for name, vals in entities.items():
-            logger.info(name, vals)
             if name == 'caltrain_station_start':
                 cxt['start_stop'] = vals[0]
             elif name == 'caltrain_station_end':
