@@ -29,7 +29,7 @@ def send_text_message(messenger_id, text):
             'id': str(messenger_id)
         },
         'message': {
-            'text': text
+            'text': text.encode(encoding='UTF-8')
         }
     }
     return _request('POST', messageData)
