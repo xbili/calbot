@@ -1,4 +1,7 @@
+import os
 from calbot.settings.defaults import *
+
+DEBUG = True
 
 # Logging Configurations
 LOGGING = {
@@ -10,24 +13,17 @@ LOGGING = {
         },
     },
     'handlers': {
-        'all': {
-            'level': 'INFO',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/calbot.log',
-            'formatter': 'verbose',
-        },
-        'error': {
-            'level': 'WARNING',
-            'class': 'logging.FileHandler',
-            'filename': '/var/log/calbot-error.log',
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['all', 'error'],
-            'level': 'INFO',
-            'propogate': True,
+            'handlers': ['console'],
+            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
+            'propagate': True,
         },
     },
 }
