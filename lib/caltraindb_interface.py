@@ -8,7 +8,7 @@ from lib.utils import convert_time
 
 class CalDbInterface:
     def __init__(self):
-        self.prefix = 'http://localhost:8000/caldb'
+        self.prefix = 'https://calbot.xbili.com/caldb'
 
     def get_trip(self, start_stop, end_stop, stated_time, bullet):
         print('Getting trip')
