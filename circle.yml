@@ -1,6 +1,4 @@
 machine:
-    pre:
-        - python manage.py update_database
     environment:
         DJANGO_SETTINGS_MODULE: calbot.settings.test
         DB_NAME: calbot
