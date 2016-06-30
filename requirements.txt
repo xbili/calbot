@@ -7,4 +7,4 @@ pycrypto==2.6.1
 requests==2.10.0
 simplejson==3.8.2
 wheel==0.26.0
-wit==3.5
+wit==3.5.0
