@@ -1,0 +1,7 @@
+commands:
+  00_create_dir:
+    command: mkdir -p /var/log/calbot
+  01_change_permissions:
+    command: chmod g+s /var/log/calbot
+  02_change_owner:
+    command: chown calbot:calbot /var/log/calbot

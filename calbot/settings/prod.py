@@ -13,13 +13,13 @@ LOGGING = {
         'all': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/calbot.log',
+            'filename': '/var/log/calbot/calbot.log',
             'formatter': 'verbose',
         },
         'error': {
             'level': 'WARNING',
             'class': 'logging.FileHandler',
-            'filename': '/var/log/calbot-error.log',
+            'filename': '/var/log/calbot/calbot-error.log',
             'formatter': 'verbose',
         },
     },
