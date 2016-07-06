@@ -25,6 +25,7 @@ SECRET_KEY = '@m09uc!re%^#(1#0-b@(xrd(je3y)pcxd2s(@o1i&q1^mauvc8'
 ALLOWED_HOSTS = [
     'calbot.xbili.com',
     '54.193.46.136',
+    'calbot-env.65pmtvx8dx.us-west-2.elasticbeanstalk.com',
 ]
 
 # Application definition
