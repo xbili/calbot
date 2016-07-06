@@ -3,7 +3,6 @@
 *.sqlite3
 
 lib/schedules
-lib/tokens.py
 
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
