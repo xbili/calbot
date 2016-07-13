@@ -10,6 +10,8 @@ machine:
         version: 3.4.3
 
 dependencies:
+    python:
+        version: 3.4.3
     pre:
         - sudo pip install awsebcli
 
