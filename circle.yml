@@ -9,7 +9,7 @@ machine:
     python:
         version: 3.4.3
     post:
-        - pyenv global 3.4.3
+        - pyenv global 2.7.11
 
 dependencies:
     pre:
