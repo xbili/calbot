@@ -8,12 +8,10 @@ machine:
         DB_PORT: 3306
     python:
         version: 3.4.3
-    post:
-        - pyenv global 2.7.9 3.4.3
 
 dependencies:
     pre:
-        - sudo pip install awsebcli
+        - pip install awsebcli
 
 deployment:
     production:
