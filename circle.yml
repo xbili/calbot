@@ -7,11 +7,11 @@ machine:
         DB_HOST: calbot-test.chkxw1myikar.us-west-1.rds.amazonaws.com
         DB_PORT: 3306
     python:
-        version: 3.4.0
+        version: 3.4.3
 
 dependencies:
     pre:
-        - sudo pip3 install awsebcli
+        - sudo pip install awsebcli
 
 deployment:
     production:
